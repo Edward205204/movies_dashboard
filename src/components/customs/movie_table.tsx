@@ -14,7 +14,7 @@ export function MovieTable({ movies, onEdit, onDelete, onSchedule }: Props) {
   return (
     <Table>
       <TableHeader>
-        <TableRow>
+        <TableRow className='grid grid-cols-[80px_100px_1fr_2fr_460px] items-center gap-4 '>
           <TableHead>ID</TableHead>
           <TableHead>Image</TableHead>
           <TableHead>Title</TableHead>
@@ -24,7 +24,7 @@ export function MovieTable({ movies, onEdit, onDelete, onSchedule }: Props) {
       </TableHeader>
       <TableBody>
         {movies.map((movie) => (
-          <TableRow key={movie.maPhim}>
+          <TableRow key={movie.maPhim} className='grid grid-cols-[80px_100px_1fr_2fr_460px] items-center gap-4'>
             <TableCell>{movie.maPhim}</TableCell>
             <TableCell>
               <div className='w-[60px] h-[70px] overflow-hidden rounded-md'>
