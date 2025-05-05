@@ -27,17 +27,17 @@ export function MovieTable({ movies, onEdit, onDelete, onSchedule }: Props) {
           <TableRow key={movie.maPhim}>
             <TableCell>{movie.maPhim}</TableCell>
             <TableCell>
-              <img
-                src={movie.hinhAnh || '/placeholder.svg'}
-                alt={movie.tenPhim}
-                width={60}
-                height={60}
-                className='rounded-md object-cover'
-              />
+              <div className='w-[60px] h-[70px] overflow-hidden rounded-md'>
+                <img
+                  src={movie.hinhAnh || '/placeholder.svg'}
+                  alt={movie.tenPhim}
+                  className='w-full h-full object-cover'
+                />
+              </div>
             </TableCell>
             <TableCell>{movie.tenPhim}</TableCell>
             <TableCell>
-              <div className='line-clamp-2 max-w-xs text-sm text-muted-foreground'>{movie.moTa}</div>
+              <div className='line-clamp-2 text-wrap max-w-xs text-sm text-muted-foreground'>{movie.moTa}</div>
             </TableCell>
             <TableCell>
               <div className='flex justify-center gap-2'>
