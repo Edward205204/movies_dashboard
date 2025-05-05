@@ -2,8 +2,6 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Link } from 'react-router';
-import path from '@/constants/path';
 import { FormikProps } from 'formik';
 import { LoginFormSchemaType } from '@/utils/zod.schema';
 
@@ -26,6 +24,7 @@ export function LoginForm({ formik, className, ...props }: LoginFormProps) {
           <Input
             id='taiKhoan'
             type='text'
+            autoComplete='username'
             placeholder='User Name'
             name='taiKhoan'
             onChange={formik.handleChange}
@@ -70,10 +69,10 @@ export function LoginForm({ formik, className, ...props }: LoginFormProps) {
         </Button>
       </div>
       <div className='text-center text-sm'>
-        Don&apos;t have an account?
-        <Link to={path.register} className='underline underline-offset-4'>
-          Sign up
-        </Link>
+        Go to user page?
+        <a href='#' className='underline underline-offset-4'>
+          Let's go
+        </a>
       </div>
     </form>
   );

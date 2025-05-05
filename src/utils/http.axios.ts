@@ -1,7 +1,6 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import HttpStatusCode from '@/constants/http_status.enum';
-import { getAccessTokenFromLS, removeLocalStorage, setAccessTokenToLS } from '@/utils/auth';
-import path from '../constants/path';
+import { getAccessTokenFromLS, removeLocalStorage } from '@/utils/auth';
 import { config } from '@/constants/config';
 
 class Http {
@@ -26,11 +25,6 @@ class Http {
     });
     this.instance.interceptors.response.use(
       (response) => {
-        const { url } = response.config;
-        if (url === path.login.slice(1) || url === path.register.slice(1)) {
-          this.accessToken = response.data.data.access_token;
-          setAccessTokenToLS(this.accessToken);
-        }
         return response;
       },
       (error: AxiosError) => {

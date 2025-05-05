@@ -12,6 +12,8 @@ import { setAccessTokenToLS } from '@/utils/auth';
 import { useNavigate } from 'react-router';
 import path from '@/constants/path';
 import { AppContext } from '@/context/app.context';
+import roles from '@/constants/roles';
+import { toast } from 'react-toastify';
 
 export default function LoginPage() {
   const { theme } = useContext(ThemeProviderContext);
@@ -32,8 +34,14 @@ export default function LoginPage() {
       return authApi.LoginRequest(values);
     },
     onSuccess: (data) => {
-      const accessToken = data.data.content.accessToken;
-      setAccessTokenToLS(accessToken);
+      const { content } = data.data;
+      console.log('Login successful:', content.accessToken);
+      if (content.maLoaiNguoiDung === roles.KhachHang) {
+        console.log(content.maLoaiNguoiDung);
+        toast.error('You do not have permission to access this page');
+        return;
+      }
+      setAccessTokenToLS(content.accessToken);
       setIsAuthenticated(true);
       navigate(path.home);
     },
