@@ -1,7 +1,7 @@
 const path = {
   home: '/',
   login: '/login',
-  cart: '/cart',
+  movies: '/movies',
   notFound: '*'
 } as const;
 

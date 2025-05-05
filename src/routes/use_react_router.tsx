@@ -4,9 +4,10 @@ import path from '@/constants/path';
 import MainLayout from '@/layouts/main_layout';
 
 import RegisterLayout from '@/layouts/login_layout';
-import Home from '@/pages/home';
-import ErrorPage from '@/pages/error';
-import LoginPage from '@/pages/login';
+import HomePage from '@/pages/home_page';
+import ErrorPage from '@/pages/error_page';
+import LoginPage from '@/pages/login_page';
+import MoviePage from '@/pages/movie_page';
 
 export default function UseReactRouter() {
   const routes = useRoutes([
@@ -18,7 +19,15 @@ export default function UseReactRouter() {
           path: path.home,
           element: (
             <MainLayout>
-              <Home />
+              <HomePage />
+            </MainLayout>
+          )
+        },
+        {
+          path: path.movies,
+          element: (
+            <MainLayout>
+              <MoviePage />
             </MainLayout>
           )
         }

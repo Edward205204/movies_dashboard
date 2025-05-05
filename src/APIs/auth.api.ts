@@ -6,11 +6,9 @@ import { LoginFormSchemaType } from '@/utils/zod.schema';
 const BASE_URL = {
   login: '/QuanLyNguoiDung/DangNhap'
 };
-class AuthApi {
-  LoginRequest = (body: LoginFormSchemaType) => {
-    return http.post<ResponseAPI<AuthResponse>>(BASE_URL.login, body);
-  };
-}
 
-const authApi = new AuthApi();
-export default authApi;
+const loginRequest = (body: LoginFormSchemaType) => {
+  return http.post<ResponseAPI<AuthResponse>>(BASE_URL.login, body);
+};
+
+export default loginRequest;

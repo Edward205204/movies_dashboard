@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { LoginFormSchema, LoginFormSchemaType } from '@/utils/zod.schema';
 import { useMutation } from '@tanstack/react-query';
-import authApi from '@/APIs/auth.api';
+import loginRequest from '@/APIs/auth.api';
 import { ThemeProviderContext } from '@/context/theme-provider';
 import { useContext } from 'react';
 import { setAccessTokenToLS } from '@/utils/auth';
@@ -31,13 +31,11 @@ export default function LoginPage() {
   });
   const useLoginMutation = useMutation({
     mutationFn: (values: LoginFormSchemaType) => {
-      return authApi.LoginRequest(values);
+      return loginRequest(values);
     },
     onSuccess: (data) => {
       const { content } = data.data;
-      console.log('Login successful:', content.accessToken);
       if (content.maLoaiNguoiDung === roles.KhachHang) {
-        console.log(content.maLoaiNguoiDung);
         toast.error('You do not have permission to access this page');
         return;
       }

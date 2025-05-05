@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import HttpStatusCode from '@/constants/http_status.enum';
-import { getAccessTokenFromLS, removeLocalStorage } from '@/utils/auth';
+import { getAccessTokenFromLS, removeAccessTokenAndProfile } from '@/utils/auth';
 import { config } from '@/constants/config';
 
 class Http {
@@ -29,14 +29,8 @@ class Http {
       },
       (error: AxiosError) => {
         if (error.response?.status !== HttpStatusCode.UnprocessableEntity) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          // const errorHandle: any | undefined = error.response?.data;
-          // const message = errorHandle?.message || error.message;
-          // const toastId = 'authError';
-          // toast.error(message, { toastId });
-
           if (error.response?.status === HttpStatusCode.Unauthorized) {
-            removeLocalStorage();
+            removeAccessTokenAndProfile();
           }
         }
         return Promise.reject(error);

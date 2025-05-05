@@ -6,6 +6,6 @@ export function getAccessTokenFromLS() {
   return localStorage.getItem('access_token') || '';
 }
 
-export function removeLocalStorage() {
-  localStorage.clear();
+export function removeAccessTokenAndProfile() {
+  localStorage.removeItem('access_token');
 }
