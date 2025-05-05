@@ -8,10 +8,15 @@ import { useMutation } from '@tanstack/react-query';
 import authApi from '@/APIs/auth.api';
 import { ThemeProviderContext } from '@/context/theme-provider';
 import { useContext } from 'react';
+import { setAccessTokenToLS } from '@/utils/auth';
+import { useNavigate } from 'react-router';
+import path from '@/constants/path';
+import { AppContext } from '@/context/app.context';
 
 export default function LoginPage() {
   const { theme } = useContext(ThemeProviderContext);
-
+  const { setIsAuthenticated } = useContext(AppContext);
+  const navigate = useNavigate();
   const formik = useFormik<LoginFormSchemaType>({
     initialValues: {
       taiKhoan: '',
@@ -19,7 +24,6 @@ export default function LoginPage() {
     },
     validationSchema: toFormikValidationSchema(LoginFormSchema),
     onSubmit: (values) => {
-      console.log(values);
       useLoginMutation.mutate(values);
     }
   });
@@ -28,7 +32,10 @@ export default function LoginPage() {
       return authApi.LoginRequest(values);
     },
     onSuccess: (data) => {
-      console.log('Login successful:', data);
+      const accessToken = data.data.content.accessToken;
+      setAccessTokenToLS(accessToken);
+      setIsAuthenticated(true);
+      navigate(path.home);
     },
     onError: (error) => {
       console.error('Login failed:', error);
