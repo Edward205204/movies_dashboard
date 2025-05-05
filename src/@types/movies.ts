@@ -26,6 +26,6 @@ export interface MovieQueryParams {
   tenPhim?: string;
   soTrang: string;
   soPhanTuTrenTrang: string;
-  // tuNgay?: string;
-  // denNgay?: string;
+  tuNgay?: string;
+  denNgay?: string;
 }
