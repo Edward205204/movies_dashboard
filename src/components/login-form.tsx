@@ -2,10 +2,20 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Link } from 'react-router';
+import path from '@/constants/path';
+import { FormikProps } from 'formik';
 
-export function LoginForm({ className, ...props }: React.ComponentProps<'form'>) {
+interface LoginFormProps extends React.ComponentProps<'form'> {
+  formik: FormikProps<{
+    email: string;
+    password: string;
+  }>;
+}
+
+export function LoginForm({ formik, className, ...props }: LoginFormProps) {
   return (
-    <form className={cn('flex flex-col gap-6', className)} {...props}>
+    <form className={cn('flex flex-col gap-6', className)} onSubmit={formik.handleSubmit} {...props}>
       <div className='flex flex-col items-center gap-2 text-center'>
         <h1 className='text-2xl font-bold'>Login to your account</h1>
         <p className='text-muted-foreground text-sm text-balance'>Enter your email below to login to your account</p>
@@ -13,7 +23,14 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'form'>)
       <div className='grid gap-6'>
         <div className='grid gap-3'>
           <Label htmlFor='email'>Email</Label>
-          <Input id='email' type='email' placeholder='m@example.com' required />
+          <Input
+            id='email'
+            type='email'
+            placeholder='m@example.com'
+            required
+            onChange={formik.handleChange}
+            value={formik.values.email}
+          />
         </div>
         <div className='grid gap-3'>
           <div className='flex items-center'>
@@ -22,7 +39,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'form'>)
               Forgot your password?
             </a>
           </div>
-          <Input id='password' type='password' required />
+          <Input id='password' type='password' onChange={formik.handleChange} value={formik.values.password} />
         </div>
         <Button type='submit' className='w-full'>
           Login
@@ -42,9 +59,9 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'form'>)
       </div>
       <div className='text-center text-sm'>
         Don&apos;t have an account?{' '}
-        <a href='#' className='underline underline-offset-4'>
+        <Link to={path.register} className='underline underline-offset-4'>
           Sign up
-        </a>
+        </Link>
       </div>
     </form>
   );
