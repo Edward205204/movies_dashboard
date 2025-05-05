@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { LoginFormSchema } from '@/utils/zod.schema';
 
-interface LoginFormValues {
+export interface LoginFormValues {
   email: string;
   password: string;
 }
