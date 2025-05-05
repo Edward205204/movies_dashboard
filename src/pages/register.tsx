@@ -5,8 +5,11 @@ import { useFormik } from 'formik';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { RegisterSchema } from '@/utils/zod.schema';
 import { RegisterSchemaType } from '@/utils/zod.schema';
+import { ThemeProviderContext } from '@/context/theme-provider';
+import { useContext } from 'react';
 
 export default function LoginPage() {
+  const { theme } = useContext(ThemeProviderContext);
   const formik = useFormik<RegisterSchemaType>({
     initialValues: {
       taiKhoan: '',
@@ -43,7 +46,11 @@ export default function LoginPage() {
         </div>
       </div>
       <div className='relative hidden bg-muted lg:block' style={{ width: '952px', height: '933px' }}>
-        <img src='/movie_poster.png' alt='Image' className='absolute inset-0 h-full w-full object-cover ' />
+        {theme === 'light' ? (
+          <img src='/bg_register.png' alt='Image' className='absolute inset-0 h-full w-full object-cover ' />
+        ) : (
+          <img src='/light_bg_register.png' alt='Image' className='absolute inset-0 h-full w-full object-cover ' />
+        )}
       </div>
     </div>
   );

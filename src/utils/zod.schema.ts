@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const LoginFormSchema = z.object({
-  taiKhoan: z.string({ message: 'Name is required' }).email({ message: 'Invalid email address' }),
+  taiKhoan: z.string({ message: 'Name is required' }),
   matKhau: z.string({ message: 'Password is required' })
 });
 

@@ -4,8 +4,14 @@ import { ModeToggle } from '@/components/mode-toggle';
 import { useFormik } from 'formik';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { LoginFormSchema, LoginFormSchemaType } from '@/utils/zod.schema';
+import { useMutation } from '@tanstack/react-query';
+import authApi from '@/APIs/auth.api';
+import { ThemeProviderContext } from '@/context/theme-provider';
+import { useContext } from 'react';
 
 export default function LoginPage() {
+  const { theme } = useContext(ThemeProviderContext);
+
   const formik = useFormik<LoginFormSchemaType>({
     initialValues: {
       taiKhoan: '',
@@ -13,9 +19,22 @@ export default function LoginPage() {
     },
     validationSchema: toFormikValidationSchema(LoginFormSchema),
     onSubmit: (values) => {
-      console.log('Form values:', values);
+      console.log(values);
+      useLoginMutation.mutate(values);
     }
   });
+  const useLoginMutation = useMutation({
+    mutationFn: (values: LoginFormSchemaType) => {
+      return authApi.LoginRequest(values);
+    },
+    onSuccess: (data) => {
+      console.log('Login successful:', data);
+    },
+    onError: (error) => {
+      console.error('Login failed:', error);
+    }
+  });
+
   return (
     <div className='grid min-h-svh lg:grid-cols-2'>
       <div className='flex flex-col gap-4 p-6 md:p-10'>
@@ -37,7 +56,11 @@ export default function LoginPage() {
         </div>
       </div>
       <div className='relative hidden bg-muted lg:block' style={{ width: '952px', height: '933px' }}>
-        <img src='/movie_poster.png' alt='Image' className='absolute inset-0 h-full w-full object-cover ' />
+        {theme === 'light' ? (
+          <img src='/bg_login.png' alt='Image' className='absolute inset-0 h-full w-full object-cover ' />
+        ) : (
+          <img src='/light_bg_login.png' alt='Image' className='absolute inset-0 h-full w-full object-cover ' />
+        )}
       </div>
     </div>
   );

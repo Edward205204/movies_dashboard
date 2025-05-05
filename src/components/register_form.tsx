@@ -14,7 +14,7 @@ interface RegisterFormProps extends React.ComponentProps<'form'> {
 export function RegisterForm({ formik, className, ...props }: RegisterFormProps) {
   return (
     <form
-      className={cn('flex flex-col gap-8 w-full max-w-lg mx-auto bg-card rounded-lg ', className)}
+      className={cn('flex flex-col gap-8 w-full max-w-lg mx-auto  rounded-lg ', className)}
       {...props}
       onSubmit={formik.handleSubmit}
     >
