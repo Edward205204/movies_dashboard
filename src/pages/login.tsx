@@ -3,18 +3,13 @@ import { LoginForm } from '@/components/login-form';
 import { ModeToggle } from '@/components/mode-toggle';
 import { useFormik } from 'formik';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
-import { LoginFormSchema } from '@/utils/zod.schema';
-
-export interface LoginFormValues {
-  email: string;
-  password: string;
-}
+import { LoginFormSchema, LoginFormSchemaType } from '@/utils/zod.schema';
 
 export default function LoginPage() {
-  const formik = useFormik<LoginFormValues>({
+  const formik = useFormik<LoginFormSchemaType>({
     initialValues: {
-      email: '',
-      password: ''
+      taiKhoan: '',
+      matKhau: ''
     },
     validationSchema: toFormikValidationSchema(LoginFormSchema),
     onSubmit: (values) => {

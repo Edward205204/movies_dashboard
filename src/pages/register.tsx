@@ -4,25 +4,17 @@ import { RegisterForm } from '@/components/register_form';
 import { useFormik } from 'formik';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { RegisterSchema } from '@/utils/zod.schema';
-import { LoginFormValues } from './login';
-
-export interface RegisterFormValues extends LoginFormValues {
-  user_name: string;
-  group_code: string;
-  full_name: string;
-  phone_number: string;
-  confirm_password: string;
-}
+import { RegisterSchemaType } from '@/utils/zod.schema';
 
 export default function LoginPage() {
-  const formik = useFormik<RegisterFormValues>({
+  const formik = useFormik<RegisterSchemaType>({
     initialValues: {
-      user_name: '',
-      group_code: '',
-      full_name: '',
+      taiKhoan: '',
+      maNhom: 'GP01',
+      hoTen: '',
       email: '',
-      phone_number: '',
-      password: '',
+      soDT: '',
+      matKhau: '',
       confirm_password: ''
     },
     validationSchema: toFormikValidationSchema(RegisterSchema),

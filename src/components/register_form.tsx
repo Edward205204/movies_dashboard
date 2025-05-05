@@ -5,10 +5,10 @@ import { Label } from '@/components/ui/label';
 import { Link } from 'react-router';
 import path from '@/constants/path';
 import { FormikProps } from 'formik';
-import { RegisterFormValues } from '@/pages/register';
+import { RegisterSchemaType } from '@/utils/zod.schema';
 
 interface RegisterFormProps extends React.ComponentProps<'form'> {
-  formik: FormikProps<RegisterFormValues>;
+  formik: FormikProps<RegisterSchemaType>;
 }
 
 export function RegisterForm({ formik, className, ...props }: RegisterFormProps) {
@@ -25,88 +25,128 @@ export function RegisterForm({ formik, className, ...props }: RegisterFormProps)
 
       <div className='grid gap-6'>
         <div className='grid grid-cols-2 gap-5'>
-          <div className='space-y-2'>
-            <Label htmlFor='user_name'>Username</Label>
+          <div className='space-y-1'>
+            <Label htmlFor='taiKhoan'>User Name</Label>
             <Input
-              id='user_name'
-              type='text'
-              placeholder='username'
-              name='user_name'
-              value={formik.values.user_name}
+              id='taiKhoan'
+              placeholder='User Name'
+              name='taiKhoan'
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.taiKhoan}
+              className={formik.touched.taiKhoan && formik.errors.taiKhoan ? 'border-destructive' : ''}
             />
+            <div className='h-5'>
+              {formik.touched.taiKhoan && formik.errors.taiKhoan && (
+                <p className='text-sm font-medium text-destructive'>{formik.errors.taiKhoan}</p>
+              )}
+            </div>
           </div>
-          <div className='space-y-2'>
-            <Label htmlFor='group_code'>Group Code</Label>
+          <div className='space-y-1'>
+            <Label htmlFor='maNhom'>Group Code</Label>
             <Input
-              placeholder='GP01'
+              id='maNhom'
+              placeholder='Group Code'
               type='text'
-              id='group_code'
-              name='group_code'
-              value={formik.values.group_code}
+              name='maNhom'
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.maNhom}
+              className={formik.touched.maNhom && formik.errors.maNhom ? 'border-destructive' : ''}
             />
           </div>
         </div>
 
-        <div className='space-y-2'>
-          <Label htmlFor='full_name'>Full Name</Label>
+        <div className='space-y-1'>
+          <Label htmlFor='hoTen'>Full Name</Label>
           <Input
-            id='full_name'
-            type='text'
+            id='hoTen'
             placeholder='Your full name'
-            name='full_name'
-            value={formik.values.full_name}
+            name='hoTen'
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.hoTen}
+            className={formik.touched.hoTen && formik.errors.hoTen ? 'border-destructive' : ''}
           />
+          <div className='h-5'>
+            {formik.touched.hoTen && formik.errors.hoTen && (
+              <p className='text-sm font-medium text-destructive'>{formik.errors.hoTen}</p>
+            )}
+          </div>
         </div>
 
-        <div className='space-y-2'>
+        <div className='space-y-1'>
           <Label htmlFor='email'>Email</Label>
           <Input
             id='email'
             type='email'
             placeholder='m@example.com'
             name='email'
-            value={formik.values.email}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+            className={formik.touched.email && formik.errors.email ? 'border-destructive' : ''}
           />
+          <div className='h-5'>
+            {formik.touched.email && formik.errors.email && (
+              <p className='text-sm font-medium text-destructive'>{formik.errors.email}</p>
+            )}
+          </div>
         </div>
 
-        <div className='space-y-2'>
-          <Label htmlFor='phone_number'>Phone Number</Label>
+        <div className='space-y-1'>
+          <Label htmlFor='soDT'>Phone Number</Label>
           <Input
-            id='phone_number'
+            id='soDT'
             type='tel'
             placeholder='0123456789'
-            name='phone_number'
-            value={formik.values.phone_number}
+            name='soDT'
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.soDT}
+            className={formik.touched.soDT && formik.errors.soDT ? 'border-destructive' : ''}
           />
+          <div className='h-5'>
+            {formik.touched.soDT && formik.errors.soDT && (
+              <p className='text-sm font-medium text-destructive'>{formik.errors.soDT}</p>
+            )}
+          </div>
         </div>
 
         <div className='grid grid-cols-2 gap-4'>
-          <div className='space-y-2'>
-            <Label htmlFor='password'>Password</Label>
+          <div className='space-y-1'>
+            <Label htmlFor='soDT'>Password</Label>
             <Input
-              id='password'
+              id='soDT'
               type='password'
-              placeholder='password'
-              name='password'
-              value={formik.values.password}
+              name='soDT'
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.matKhau}
+              className={formik.touched.soDT && formik.errors.soDT ? 'border-destructive' : ''}
             />
+            <div className='h-5'>
+              {formik.touched.soDT && formik.errors.soDT && (
+                <p className='text-sm font-medium text-destructive'>{formik.errors.soDT}</p>
+              )}
+            </div>
           </div>
-          <div className='space-y-2'>
+          <div className='space-y-1'>
             <Label htmlFor='confirm_password'>Confirm Password</Label>
             <Input
               id='confirm_password'
               type='password'
-              placeholder='confirm password'
               name='confirm_password'
-              value={formik.values.confirm_password}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.confirm_password}
+              className={formik.touched.confirm_password && formik.errors.confirm_password ? 'border-destructive' : ''}
             />
+            <div className='h-5'>
+              {formik.touched.confirm_password && formik.errors.confirm_password && (
+                <p className='text-sm font-medium text-destructive'>{formik.errors.confirm_password}</p>
+              )}
+            </div>
           </div>
         </div>
 
