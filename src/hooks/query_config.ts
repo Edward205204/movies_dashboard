@@ -12,7 +12,21 @@ const MAX_ITEMS_PER_PAGE = 6;
 export function useQueryConfig() {
   const searchParam = useSearchParam();
   const rawItemsPerPage = searchParam.soPhanTuTrenTrang || '7';
-  const itemsPerPage = parseInt(rawItemsPerPage) > MAX_ITEMS_PER_PAGE ? MAX_ITEMS_PER_PAGE : parseInt(rawItemsPerPage);
+  let itemsPerPage = parseInt(rawItemsPerPage);
+
+  // Nếu số phần tử trên trang lớn hơn MAX_ITEMS_PER_PAGE
+  if (itemsPerPage > MAX_ITEMS_PER_PAGE) {
+    itemsPerPage = MAX_ITEMS_PER_PAGE;
+  }
+  // Nếu số phần tử trên trang nhỏ hơn hoặc bằng 0
+  else if (itemsPerPage <= 0) {
+    itemsPerPage = 1;
+  }
+
+  // Nếu số trang hiện tại là 5 và số phần tử trên trang là 6, giảm xuống 4
+  if (searchParam.soTrang === '5' && itemsPerPage === 6) {
+    itemsPerPage = 4;
+  }
 
   const queryConfig: QueryConfig = omitBy(
     {

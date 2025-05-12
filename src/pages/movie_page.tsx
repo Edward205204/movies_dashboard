@@ -8,6 +8,8 @@ import movieApi from '@/APIs/movie.api';
 import { createSearchParams, useNavigate } from 'react-router';
 import path from '@/constants/path';
 import PaginationWrapper from '@/components/customs/pagination_wrapper';
+import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
 
 export default function MoviePage() {
   const queryConfig = useQueryConfig();
@@ -32,15 +34,22 @@ export default function MoviePage() {
     toast.info(`Schedule for movie ID: ${movieId}`);
   };
 
+  const handleAddMovie = () => {
+    toast.info('Thêm phim mới');
+  };
+
   useEffect(() => {
-    if (
-      queryConfig.soTrang &&
-      content &&
-      (parseInt(queryConfig.soTrang) > content.totalPages || parseInt(queryConfig.soTrang) < 1)
-    ) {
+    if (!content) return;
+
+    const currentPage = parseInt(queryConfig.soTrang as string);
+    const itemsPerPage = parseInt(queryConfig.soPhanTuTrenTrang as string);
+    const totalItems = content.totalCount;
+    const maxPage = Math.ceil(totalItems / itemsPerPage);
+
+    if (currentPage > maxPage) {
       navigate({
         pathname: path.movies,
-        search: createSearchParams({ ...queryConfig, soTrang: '1' }).toString()
+        search: createSearchParams({ ...queryConfig, soTrang: maxPage.toString() }).toString()
       });
     }
   }, [queryConfig, navigate, content]);
@@ -55,10 +64,24 @@ export default function MoviePage() {
     });
   };
 
+  // Tính toán lại số trang tổng cộng
+  const calculateTotalPages = () => {
+    if (!content) return 1;
+    const itemsPerPage = parseInt(queryConfig.soPhanTuTrenTrang as string);
+    const totalItems = content.totalCount;
+    return Math.ceil(totalItems / itemsPerPage);
+  };
+
   return (
     <div className='flex flex-col h-full'>
       <div className='p-6'>
-        <h1 className='text-2xl font-semibold mb-4'>Movie Management</h1>
+        <div className='flex justify-between items-center mb-4'>
+          <h1 className='text-2xl font-semibold'>Movie Management</h1>
+          <Button onClick={handleAddMovie} className='flex items-center gap-2'>
+            <Plus className='w-4 h-4' />
+            Thêm phim
+          </Button>
+        </div>
         {content?.items && (
           <MovieTable movies={content.items} onEdit={handleEdit} onDelete={handleDelete} onSchedule={handleSchedule} />
         )}
@@ -68,7 +91,7 @@ export default function MoviePage() {
         <PaginationWrapper
           goToPage={goToPage}
           currentPage={parseInt(queryConfig.soTrang as string) || 1}
-          totalPages={content?.totalPages ? Number(content.totalPages) : 1}
+          totalPages={calculateTotalPages()}
         />
       </div>
     </div>
