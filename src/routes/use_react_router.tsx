@@ -30,6 +30,14 @@ export default function UseReactRouter() {
               <MoviePage />
             </MainLayout>
           )
+        },
+        {
+          path: path.movies,
+          element: (
+            <MainLayout>
+              <MoviePage />
+            </MainLayout>
+          )
         }
       ]
     },

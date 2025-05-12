@@ -4,8 +4,6 @@ import {
   PaginationItem,
   PaginationPrevious,
   PaginationLink,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  PaginationEllipsis,
   PaginationNext
 } from '@/components/ui/pagination';
 

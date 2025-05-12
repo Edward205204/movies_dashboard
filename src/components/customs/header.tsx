@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button';
 import { Film, Menu, Search, Bell, LogOut } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router';
+import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Link } from 'react-router';
 import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 import {
@@ -18,13 +18,35 @@ import navigateItems from '@/constants/menu_items';
 import { removeAccessTokenAndProfile } from '@/utils/auth';
 import { AppContext } from '@/context/app.context';
 import { ModeToggle } from '../mode-toggle';
+import { createSearchParams } from 'react-router';
+import path from '@/constants/path';
+import { useQueryConfig } from '@/hooks/query_config';
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
   const { setIsAuthenticated } = useContext(AppContext);
+  const location = useLocation();
+  const queryConfig = useQueryConfig();
+  const navigate = useNavigate();
+
   const handleLogout = () => {
     removeAccessTokenAndProfile();
     setIsAuthenticated(false);
+  };
+
+  const handleSearch = (value: string) => {
+    setSearchValue(value);
+    if (location.pathname === path.movies) {
+      const newQueryConfig = {
+        ...queryConfig,
+        ...(value ? { tenPhim: value } : {})
+      };
+      navigate({
+        pathname: path.movies,
+        search: createSearchParams(newQueryConfig).toString()
+      });
+    }
   };
 
   return (
@@ -41,7 +63,6 @@ export default function Header() {
             <Film className='h-6 w-6' />
             <span className='text-lg font-semibold'>Movie Admin</span>
           </div>
-          {/*  cần chỉnh sửa */}
           <div className='grid gap-2 py-4'>
             {navigateItems.map((item) => (
               <Link
@@ -72,7 +93,13 @@ export default function Header() {
         <form className='hidden md:block'>
           <div className='relative'>
             <Search className='absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground' />
-            <Input type='search' placeholder='Search...' className='w-full bg-background pl-8 md:w-2/3 lg:w-1/3' />
+            <Input
+              type='search'
+              placeholder={location.pathname === path.movies ? 'Search movies...' : 'Search...'}
+              value={searchValue}
+              onChange={(e) => handleSearch(e.target.value)}
+              className='w-full bg-background pl-8 md:w-2/3 lg:w-1/3'
+            />
           </div>
         </form>
       </div>

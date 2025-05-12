@@ -16,7 +16,7 @@ export function useQueryConfig() {
       maNhom: searchParam.maNhom || 'GP01',
       tenPhim: searchParam.tenPhim || undefined,
       soTrang: searchParam.soTrang || 1,
-      soPhanTuTrenTrang: searchParam.soPhanTuTrenTrang || 6,
+      soPhanTuTrenTrang: searchParam.soPhanTuTrenTrang || 7,
       tuNgay: searchParam.tuNgay || undefined,
       denNgay: searchParam.denNgay || undefined
     },

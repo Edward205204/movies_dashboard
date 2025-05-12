@@ -118,3 +118,20 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Ngăn chặn bôi xanh text khi click đúp */
+* {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Cho phép select text trong input và textarea */
+input,
+textarea {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
