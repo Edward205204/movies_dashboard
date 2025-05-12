@@ -56,17 +56,21 @@ export default function MoviePage() {
   };
 
   return (
-    <div className='p-6 relative h-screen'>
-      <h1 className='text-2xl font-semibold mb-4'>Movie Management</h1>
-      {content?.items && (
-        <MovieTable movies={content.items} onEdit={handleEdit} onDelete={handleDelete} onSchedule={handleSchedule} />
-      )}
+    <div className='flex flex-col h-full'>
+      <div className='p-6'>
+        <h1 className='text-2xl font-semibold mb-4'>Movie Management</h1>
+        {content?.items && (
+          <MovieTable movies={content.items} onEdit={handleEdit} onDelete={handleDelete} onSchedule={handleSchedule} />
+        )}
+      </div>
 
-      <PaginationWrapper
-        goToPage={goToPage}
-        currentPage={parseInt(queryConfig.soTrang as string) || 1}
-        totalPages={content?.totalPages ? Number(content.totalPages) : 1}
-      />
+      <div className='border-t p-6 mt-auto'>
+        <PaginationWrapper
+          goToPage={goToPage}
+          currentPage={parseInt(queryConfig.soTrang as string) || 1}
+          totalPages={content?.totalPages ? Number(content.totalPages) : 1}
+        />
+      </div>
     </div>
   );
 }
