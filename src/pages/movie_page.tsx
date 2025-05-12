@@ -134,12 +134,12 @@ export default function MoviePage() {
             <DialogTrigger asChild>
               <Button className='flex items-center gap-2'>
                 <Plus className='w-4 h-4' />
-                Thêm phim
+                Add Movie
               </Button>
             </DialogTrigger>
-            <DialogContent className='sm:max-w-[425px]'>
+            <DialogContent className='sm:max-w-[600px]'>
               <DialogHeader>
-                <DialogTitle>Thêm phim mới</DialogTitle>
+                <DialogTitle>Add New Movie</DialogTitle>
               </DialogHeader>
               <Formik
                 initialValues={initialValues}
@@ -148,42 +148,50 @@ export default function MoviePage() {
               >
                 {({ setFieldValue }) => (
                   <Form className='space-y-4'>
-                    <div>
-                      <label htmlFor='tenPhim' className='block text-sm font-medium mb-1'>
-                        Tên phim
+                    <div className='space-y-1'>
+                      <label htmlFor='tenPhim' className='block text-sm font-medium'>
+                        Movie Name
                       </label>
                       <Field as={Input} id='tenPhim' name='tenPhim' />
-                      <ErrorMessage name='tenPhim' component='div' className='text-red-500 text-sm mt-1' />
+                      <div className='h-4'>
+                        <ErrorMessage name='tenPhim' component='div' className='text-red-500 text-xs' />
+                      </div>
                     </div>
 
-                    <div>
-                      <label htmlFor='trailer' className='block text-sm font-medium mb-1'>
+                    <div className='space-y-1'>
+                      <label htmlFor='trailer' className='block text-sm font-medium'>
                         Trailer
                       </label>
                       <Field as={Input} id='trailer' name='trailer' />
-                      <ErrorMessage name='trailer' component='div' className='text-red-500 text-sm mt-1' />
+                      <div className='h-4'>
+                        <ErrorMessage name='trailer' component='div' className='text-red-500 text-xs' />
+                      </div>
                     </div>
 
-                    <div>
-                      <label htmlFor='moTa' className='block text-sm font-medium mb-1'>
-                        Mô tả
+                    <div className='space-y-1'>
+                      <label htmlFor='moTa' className='block text-sm font-medium'>
+                        Description
                       </label>
-                      <Field as={Textarea} id='moTa' name='moTa' />
-                      <ErrorMessage name='moTa' component='div' className='text-red-500 text-sm mt-1' />
+                      <Field as={Textarea} id='moTa' name='moTa' className='min-h-[100px]' />
+                      <div className='h-4'>
+                        <ErrorMessage name='moTa' component='div' className='text-red-500 text-xs' />
+                      </div>
                     </div>
 
-                    <div>
-                      <label htmlFor='ngayKhoiChieu' className='block text-sm font-medium mb-1'>
-                        Ngày khởi chiếu
+                    <div className='space-y-1'>
+                      <label htmlFor='ngayKhoiChieu' className='block text-sm font-medium'>
+                        Release Date
                       </label>
                       <Field as={Input} type='date' id='ngayKhoiChieu' name='ngayKhoiChieu' />
-                      <ErrorMessage name='ngayKhoiChieu' component='div' className='text-red-500 text-sm mt-1' />
+                      <div className='h-4'>
+                        <ErrorMessage name='ngayKhoiChieu' component='div' className='text-red-500 text-xs' />
+                      </div>
                     </div>
 
                     <div className='grid grid-cols-2 gap-4'>
-                      <div>
+                      <div className='space-y-1'>
                         <label className='flex items-center justify-between'>
-                          <span className='text-sm font-medium'>Sắp chiếu</span>
+                          <span className='text-sm font-medium'>Coming Soon</span>
                           <Field name='sapChieu'>
                             {({ field }: FieldProps<boolean>) => (
                               <Switch
@@ -193,11 +201,14 @@ export default function MoviePage() {
                             )}
                           </Field>
                         </label>
+                        <div className='h-4'>
+                          <ErrorMessage name='sapChieu' component='div' className='text-red-500 text-xs' />
+                        </div>
                       </div>
 
-                      <div>
+                      <div className='space-y-1'>
                         <label className='flex items-center justify-between'>
-                          <span className='text-sm font-medium'>Đang chiếu</span>
+                          <span className='text-sm font-medium'>Now Showing</span>
                           <Field name='dangChieu'>
                             {({ field }: FieldProps<boolean>) => (
                               <Switch
@@ -207,10 +218,13 @@ export default function MoviePage() {
                             )}
                           </Field>
                         </label>
+                        <div className='h-4'>
+                          <ErrorMessage name='dangChieu' component='div' className='text-red-500 text-xs' />
+                        </div>
                       </div>
                     </div>
 
-                    <div>
+                    <div className='space-y-1'>
                       <label className='flex items-center justify-between'>
                         <span className='text-sm font-medium'>Hot</span>
                         <Field name='hot'>
@@ -222,19 +236,24 @@ export default function MoviePage() {
                           )}
                         </Field>
                       </label>
+                      <div className='h-4'>
+                        <ErrorMessage name='hot' component='div' className='text-red-500 text-xs' />
+                      </div>
                     </div>
 
-                    <div>
-                      <label htmlFor='danhGia' className='block text-sm font-medium mb-1'>
-                        Đánh giá
+                    <div className='space-y-1'>
+                      <label htmlFor='danhGia' className='block text-sm font-medium'>
+                        Rating
                       </label>
                       <Field as={Input} type='number' min={0} max={10} id='danhGia' name='danhGia' />
-                      <ErrorMessage name='danhGia' component='div' className='text-red-500 text-sm mt-1' />
+                      <div className='h-4'>
+                        <ErrorMessage name='danhGia' component='div' className='text-red-500 text-xs' />
+                      </div>
                     </div>
 
-                    <div>
-                      <label htmlFor='hinhAnh' className='block text-sm font-medium mb-1'>
-                        Hình ảnh
+                    <div className='space-y-1'>
+                      <label htmlFor='hinhAnh' className='block text-sm font-medium'>
+                        Poster
                       </label>
                       <Input
                         type='file'
@@ -246,11 +265,13 @@ export default function MoviePage() {
                           }
                         }}
                       />
-                      <ErrorMessage name='hinhAnh' component='div' className='text-red-500 text-sm mt-1' />
+                      <div className='h-4'>
+                        <ErrorMessage name='hinhAnh' component='div' className='text-red-500 text-xs' />
+                      </div>
                     </div>
 
                     <Button type='submit' className='w-full'>
-                      Thêm phim
+                      Add Movie
                     </Button>
                   </Form>
                 )}
