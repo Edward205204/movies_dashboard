@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { MovieTable } from '@/components/customs/movie_table';
 import { toast } from 'react-toastify';
 import { MovieItem, MovieQueryParams } from '@/@types/movies';
@@ -10,14 +10,8 @@ import path from '@/constants/path';
 import PaginationWrapper from '@/components/customs/pagination_wrapper';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Switch } from '@/components/ui/switch';
-import { Formik, Form, Field, ErrorMessage, FieldProps } from 'formik';
-import { useState } from 'react';
-import { toFormikValidationSchema } from 'zod-formik-adapter';
-import { movieSchema, MovieFormValues } from '@/utils/zod.schema';
+import { MovieFormModal } from '@/components/customs/movie_form_modal';
+import { MovieFormValues } from '@/utils/zod.schema';
 
 export default function MoviePage() {
   const queryConfig = useQueryConfig();
@@ -143,154 +137,17 @@ export default function MoviePage() {
       <div className='p-6'>
         <div className='flex justify-between items-center mb-4'>
           <h1 className='text-2xl font-semibold'>Movie Management</h1>
-          <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-              <Button className='flex items-center gap-2'>
-                <Plus className='w-4 h-4' />
-                Add Movie
-              </Button>
-            </DialogTrigger>
-            <DialogContent className='sm:max-w-[600px]'>
-              <DialogHeader>
-                <DialogTitle>Add New Movie</DialogTitle>
-              </DialogHeader>
-              <Formik
-                initialValues={initialValues}
-                validationSchema={toFormikValidationSchema(movieSchema)}
-                onSubmit={handleSubmit}
-              >
-                {({ setFieldValue }) => (
-                  <Form className='space-y-4'>
-                    <div className='space-y-1'>
-                      <label htmlFor='tenPhim' className='block text-sm font-medium'>
-                        Movie Name
-                      </label>
-                      <Field as={Input} id='tenPhim' name='tenPhim' />
-                      <div className='h-4'>
-                        <ErrorMessage name='tenPhim' component='div' className='text-red-500 text-xs' />
-                      </div>
-                    </div>
-
-                    <div className='space-y-1'>
-                      <label htmlFor='trailer' className='block text-sm font-medium'>
-                        Trailer
-                      </label>
-                      <Field as={Input} id='trailer' name='trailer' />
-                      <div className='h-4'>
-                        <ErrorMessage name='trailer' component='div' className='text-red-500 text-xs' />
-                      </div>
-                    </div>
-
-                    <div className='space-y-1'>
-                      <label htmlFor='moTa' className='block text-sm font-medium'>
-                        Description
-                      </label>
-                      <Field as={Textarea} id='moTa' name='moTa' className='min-h-[100px]' />
-                      <div className='h-4'>
-                        <ErrorMessage name='moTa' component='div' className='text-red-500 text-xs' />
-                      </div>
-                    </div>
-
-                    <div className='space-y-1'>
-                      <label htmlFor='ngayKhoiChieu' className='block text-sm font-medium'>
-                        Release Date
-                      </label>
-                      <Field as={Input} type='date' id='ngayKhoiChieu' name='ngayKhoiChieu' />
-                      <div className='h-4'>
-                        <ErrorMessage name='ngayKhoiChieu' component='div' className='text-red-500 text-xs' />
-                      </div>
-                    </div>
-
-                    <div className='grid grid-cols-2 gap-4'>
-                      <div className='space-y-1'>
-                        <label className='flex items-center justify-between'>
-                          <span className='text-sm font-medium'>Coming Soon</span>
-                          <Field name='sapChieu'>
-                            {({ field }: FieldProps<boolean>) => (
-                              <Switch
-                                checked={field.value}
-                                onCheckedChange={(checked: boolean) => setFieldValue('sapChieu', checked)}
-                              />
-                            )}
-                          </Field>
-                        </label>
-                        <div className='h-4'>
-                          <ErrorMessage name='sapChieu' component='div' className='text-red-500 text-xs' />
-                        </div>
-                      </div>
-
-                      <div className='space-y-1'>
-                        <label className='flex items-center justify-between'>
-                          <span className='text-sm font-medium'>Now Showing</span>
-                          <Field name='dangChieu'>
-                            {({ field }: FieldProps<boolean>) => (
-                              <Switch
-                                checked={field.value}
-                                onCheckedChange={(checked: boolean) => setFieldValue('dangChieu', checked)}
-                              />
-                            )}
-                          </Field>
-                        </label>
-                        <div className='h-4'>
-                          <ErrorMessage name='dangChieu' component='div' className='text-red-500 text-xs' />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className='space-y-1'>
-                      <label className='flex items-center justify-between'>
-                        <span className='text-sm font-medium'>Hot</span>
-                        <Field name='hot'>
-                          {({ field }: FieldProps<boolean>) => (
-                            <Switch
-                              checked={field.value}
-                              onCheckedChange={(checked: boolean) => setFieldValue('hot', checked)}
-                            />
-                          )}
-                        </Field>
-                      </label>
-                      <div className='h-4'>
-                        <ErrorMessage name='hot' component='div' className='text-red-500 text-xs' />
-                      </div>
-                    </div>
-
-                    <div className='space-y-1'>
-                      <label htmlFor='danhGia' className='block text-sm font-medium'>
-                        Rating
-                      </label>
-                      <Field as={Input} type='number' min={0} max={10} id='danhGia' name='danhGia' />
-                      <div className='h-4'>
-                        <ErrorMessage name='danhGia' component='div' className='text-red-500 text-xs' />
-                      </div>
-                    </div>
-
-                    <div className='space-y-1'>
-                      <label htmlFor='hinhAnh' className='block text-sm font-medium'>
-                        Poster
-                      </label>
-                      <Input
-                        type='file'
-                        accept='image/*'
-                        onChange={(e) => {
-                          const file = e.target.files?.[0];
-                          if (file) {
-                            setFieldValue('hinhAnh', file);
-                          }
-                        }}
-                      />
-                      <div className='h-4'>
-                        <ErrorMessage name='hinhAnh' component='div' className='text-red-500 text-xs' />
-                      </div>
-                    </div>
-
-                    <Button type='submit' className='w-full'>
-                      Add Movie
-                    </Button>
-                  </Form>
-                )}
-              </Formik>
-            </DialogContent>
-          </Dialog>
+          <Button className='flex items-center gap-2' onClick={() => setOpen(true)}>
+            <Plus className='w-4 h-4' />
+            Add Movie
+          </Button>
+          <MovieFormModal
+            open={open}
+            onClose={() => setOpen(false)}
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+            title='Add New Movie'
+          />
         </div>
         {content?.items && (
           <MovieTable movies={content.items} onEdit={handleEdit} onDelete={handleDelete} onSchedule={handleSchedule} />
