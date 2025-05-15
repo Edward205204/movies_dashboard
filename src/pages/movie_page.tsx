@@ -83,11 +83,25 @@ export default function MoviePage() {
 
   const handleSubmit = (values: MovieFormValues) => {
     const formData = new FormData();
-    Object.entries(values).forEach(([key, value]) => {
-      if (value !== undefined) {
-        formData.append(key, value.toString());
-      }
-    });
+    // Format ngày chiếu nếu có
+    let ngayKhoiChieuFormatted = values.ngayKhoiChieu;
+    if (values.ngayKhoiChieu && values.ngayKhoiChieu.includes('-')) {
+      const [year, month, day] = values.ngayKhoiChieu.split('-');
+      const dayFormatted = day.padStart(2, '0');
+      const monthFormatted = month.padStart(2, '0');
+      ngayKhoiChieuFormatted = `${dayFormatted}/${monthFormatted}/${year}`;
+    }
+    formData.append('tenPhim', values.tenPhim);
+    formData.append('trailer', values.trailer);
+    formData.append('moTa', values.moTa);
+    formData.append('ngayKhoiChieu', ngayKhoiChieuFormatted);
+    formData.append('sapChieu', values.sapChieu ? 'true' : 'false');
+    formData.append('dangChieu', values.dangChieu ? 'true' : 'false');
+    formData.append('hot', values.hot ? 'true' : 'false');
+    formData.append('danhGia', values.danhGia.toString());
+    if (values.hinhAnh) {
+      formData.append('File', values.hinhAnh);
+    }
     formData.append('maNhom', 'GP01');
     addMovieMutation.mutate(formData);
   };

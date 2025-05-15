@@ -4,14 +4,22 @@ import http from '@/utils/http.axios';
 
 const BASE_URL = {
   getMovies: '/QuanLyPhim/LayDanhSachPhimPhanTrang',
-  addMovie: '/QuanLyPhim/ThemPhimUploadHinh'
+  addMovie: '/QuanLyPhim/ThemPhimUploadHinh',
+  deleteMovie: '/QuanLyPhim/XoaPhim'
 };
 export class MovieApi {
   getMovies(params: MovieQueryParams) {
     return http.get<ResponseAPI<MoviesResponse>>(BASE_URL.getMovies, { params });
   }
   addMovie(formData: FormData) {
-    return http.post<ResponseAPI<MoviesResponse>>(BASE_URL.addMovie, formData);
+    formData.forEach((value, key) => {
+      console.log(key, value);
+    });
+    return http.post(BASE_URL.addMovie, formData);
+  }
+
+  deleteMovie(id: string) {
+    return http.delete(BASE_URL.deleteMovie, { data: { maPhim: id } });
   }
 }
 
