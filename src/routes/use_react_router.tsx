@@ -10,6 +10,8 @@ import LoginPage from '@/pages/login_page';
 import MoviePage from '@/pages/movie_page';
 import MovieDetailPage from '@/pages/movie_detail';
 import UserPage from '@/pages/user_page';
+import ProfileLayout from '@/layouts/profile_layout';
+import ProfilePage from '@/pages/profile_page';
 
 export default function UseReactRouter() {
   const routes = useRoutes([
@@ -55,6 +57,14 @@ export default function UseReactRouter() {
             <MainLayout>
               <UserPage />
             </MainLayout>
+          )
+        },
+        {
+          path: path.profile,
+          element: (
+            <ProfileLayout>
+              <ProfilePage />
+            </ProfileLayout>
           )
         }
       ]

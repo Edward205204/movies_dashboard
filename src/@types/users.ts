@@ -3,7 +3,7 @@ export interface User {
   matKhau: string;
   email: string;
   soDt: string;
-  maNhom: null;
+  maNhom: string;
   maLoaiNguoiDung: string;
   hoTen: string;
 }

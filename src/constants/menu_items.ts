@@ -18,4 +18,5 @@ const navigateItems = [
     icon: User
   }
 ];
+
 export default navigateItems;

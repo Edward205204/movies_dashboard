@@ -1,4 +1,3 @@
-// import { QueryConfig } from '../Pages/ProductList/ProductList';
 import { useSearchParam } from './query_param';
 import { MovieQueryParams } from '@/@types/movies';
 import { omitBy, isUndefined } from 'lodash';

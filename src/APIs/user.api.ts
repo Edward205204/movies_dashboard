@@ -6,7 +6,9 @@ const BASE_URL = {
   getUsers: '/QuanLyNguoiDung/LayDanhSachNguoiDungPhanTrang',
   addUser: '/QuanLyNguoiDung/ThemNguoiDung',
   updateUser: '/QuanLyNguoiDung/CapNhatThongTinNguoiDung',
-  deleteUser: '/QuanLyNguoiDung/XoaNguoiDung'
+  deleteUser: '/QuanLyNguoiDung/XoaNguoiDung',
+  getUser: '/QuanLyNguoiDung/ThongTinTaiKhoan',
+  updateUserByAdmin: '/QuanLyNguoiDung/CapNhatThongTinNguoiDung'
 };
 
 export class UserApi {
@@ -23,6 +25,12 @@ export class UserApi {
     return http.delete(BASE_URL.deleteUser, {
       params: { TaiKhoan: id }
     });
+  }
+  getUser() {
+    return http.post<ResponseAPI<User>>(BASE_URL.getUser);
+  }
+  updateUserByAdmin(data: Omit<User, 'maNhom'> & { maNhom: string }) {
+    return http.put(BASE_URL.updateUserByAdmin, data);
   }
 }
 
