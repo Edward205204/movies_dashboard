@@ -19,4 +19,21 @@ export const movieSchema = z.object({
   maPhim: z.number().optional()
 });
 
+export const userSchema = z.object({
+  taiKhoan: z.string().min(1, 'Tài khoản không được để trống'),
+  matKhau: z.string().min(1, 'Mật khẩu không được để trống'),
+  email: z.string().email('Email không hợp lệ'),
+  soDt: z.string().min(1, 'Số điện thoại không được để trống'),
+  hoTen: z.string().min(1, 'Họ tên không được để trống'),
+  maLoaiNguoiDung: z
+    .string()
+    .min(1, 'Loại người dùng không được để trống')
+    .refine((val) => ['QuanTri', 'KhachHang'].includes(val), {
+      message: 'Loại người dùng không hợp lệ'
+    }),
+  maNhom: z.string().min(1, 'Mã nhóm không được để trống')
+});
+
+export type UserFormValues = z.infer<typeof userSchema>;
+
 export type MovieFormValues = z.infer<typeof movieSchema>;
