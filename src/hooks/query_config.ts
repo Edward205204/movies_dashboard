@@ -9,14 +9,14 @@ export type QueryConfig = {
 } & { tuKhoa?: string };
 
 const MAX_ITEMS_PER_PAGE_MOVIE = 6;
-const MAX_ITEMS_PER_PAGE_USER = 16;
+const MAX_ITEMS_PER_PAGE_USER = 11;
 
 export function useQueryConfig() {
   const searchParam = useSearchParam();
   const location = useLocation();
   const isUserPage = location.pathname.includes('/users');
   const maxItems = isUserPage ? MAX_ITEMS_PER_PAGE_USER : MAX_ITEMS_PER_PAGE_MOVIE;
-  const rawItemsPerPage = searchParam.soPhanTuTrenTrang || (isUserPage ? '16' : '7');
+  const rawItemsPerPage = searchParam.soPhanTuTrenTrang || (isUserPage ? '11' : '7');
   let itemsPerPage = parseInt(rawItemsPerPage);
 
   if (itemsPerPage > maxItems) {
