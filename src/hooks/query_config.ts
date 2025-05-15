@@ -23,11 +23,6 @@ export function useQueryConfig() {
     itemsPerPage = 1;
   }
 
-  // Nếu số trang hiện tại là 5 và số phần tử trên trang là 6, giảm xuống 4
-  if (searchParam.soTrang === '5' && itemsPerPage === 6) {
-    itemsPerPage = 4;
-  }
-
   const queryConfig: QueryConfig = omitBy(
     {
       maNhom: searchParam.maNhom || 'GP01',
