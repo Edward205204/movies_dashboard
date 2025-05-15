@@ -6,7 +6,7 @@ import { useLocation } from 'react-router';
 
 export type QueryConfig = {
   [key in keyof MovieQueryParams]?: string;
-};
+} & { tuKhoa?: string };
 
 const MAX_ITEMS_PER_PAGE_MOVIE = 6;
 const MAX_ITEMS_PER_PAGE_USER = 16;
@@ -32,7 +32,8 @@ export function useQueryConfig() {
       soTrang: searchParam.soTrang || '1',
       soPhanTuTrenTrang: itemsPerPage.toString(),
       tuNgay: searchParam.tuNgay || undefined,
-      denNgay: searchParam.denNgay || undefined
+      denNgay: searchParam.denNgay || undefined,
+      ...(isUserPage ? { tuKhoa: searchParam.tuKhoa || undefined } : {})
     },
     isUndefined
   );

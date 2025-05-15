@@ -40,10 +40,21 @@ export default function Header() {
     if (location.pathname === path.movies) {
       const newQueryConfig = {
         ...queryConfig,
-        ...(value ? { tenPhim: value } : {})
+        ...(value ? { tenPhim: value } : {}),
+        soTrang: '1'
       };
       navigate({
         pathname: path.movies,
+        search: createSearchParams(newQueryConfig).toString()
+      });
+    } else if (location.pathname === path.users) {
+      const newQueryConfig = {
+        ...queryConfig,
+        ...(value ? { tuKhoa: value } : {}),
+        soTrang: '1'
+      };
+      navigate({
+        pathname: path.users,
         search: createSearchParams(newQueryConfig).toString()
       });
     }
