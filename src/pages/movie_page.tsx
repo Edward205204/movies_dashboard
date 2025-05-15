@@ -18,6 +18,8 @@ export default function MoviePage() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [editInitialValues, setEditInitialValues] = useState<MovieFormValues | null>(null);
 
   const { data } = useQuery({
     queryKey: ['movies', queryConfig],
@@ -50,8 +52,34 @@ export default function MoviePage() {
     }
   });
 
+  const updateMovieMutation = useMutation({
+    mutationFn: (formData: FormData) => movieApi.updateMovie(formData),
+    onSuccess: () => {
+      toast.success('Movie updated successfully');
+      setEditOpen(false);
+      queryClient.invalidateQueries({ queryKey: ['movies'] });
+    },
+    onError: () => {
+      toast.error('Failed to update movie');
+    }
+  });
+
   const handleEdit = (movie: MovieItem) => {
-    toast.info(`Edit movie: ${movie.tenPhim}`);
+    setEditInitialValues({
+      maPhim: movie.maPhim,
+      tenPhim: movie.tenPhim,
+      trailer: movie.trailer,
+      moTa: movie.moTa,
+      ngayKhoiChieu: movie.ngayKhoiChieu.includes('/')
+        ? movie.ngayKhoiChieu.split('/').reverse().join('-')
+        : movie.ngayKhoiChieu.split('T')[0],
+      sapChieu: movie.sapChieu,
+      dangChieu: movie.dangChieu,
+      hot: movie.hot,
+      danhGia: movie.danhGia,
+      hinhAnh: undefined
+    });
+    setEditOpen(true);
   };
 
   const handleDelete = (movieId: number) => {
@@ -97,6 +125,39 @@ export default function MoviePage() {
     }
     formData.append('maNhom', 'GP01');
     addMovieMutation.mutate(formData);
+  };
+
+  const handleUpdateMovie = (values: MovieFormValues) => {
+    const formData = new FormData();
+    const getValue = (key: keyof MovieFormValues) => {
+      if (values[key] !== undefined && values[key] !== '' && values[key] !== null) return values[key];
+      if (editInitialValues) return editInitialValues[key];
+      return '';
+    };
+    formData.append('tenPhim', getValue('tenPhim') as string);
+    formData.append('trailer', getValue('trailer') as string);
+    formData.append('moTa', getValue('moTa') as string);
+    let ngayKhoiChieuFormatted = getValue('ngayKhoiChieu') as string;
+    if (ngayKhoiChieuFormatted && ngayKhoiChieuFormatted.includes('-')) {
+      const [year, month, day] = ngayKhoiChieuFormatted.split('-');
+      const dayFormatted = day.padStart(2, '0');
+      const monthFormatted = month.padStart(2, '0');
+      ngayKhoiChieuFormatted = `${dayFormatted}/${monthFormatted}/${year}`;
+    }
+    formData.append('ngayKhoiChieu', ngayKhoiChieuFormatted);
+    formData.append('sapChieu', getValue('sapChieu') ? 'true' : 'false');
+    formData.append('dangChieu', getValue('dangChieu') ? 'true' : 'false');
+    formData.append('hot', getValue('hot') ? 'true' : 'false');
+    formData.append('danhGia', getValue('danhGia')?.toString() || '0');
+    if (values.hinhAnh) {
+      formData.append('File', values.hinhAnh);
+    }
+    // Luôn append maPhim nếu có (chỉ khi edit)
+    if (values.maPhim) {
+      formData.append('maPhim', values.maPhim.toString());
+    }
+    formData.append('maNhom', 'GP01');
+    updateMovieMutation.mutate(formData);
   };
 
   useEffect(() => {
@@ -161,6 +222,14 @@ export default function MoviePage() {
           totalPages={calculateTotalPages()}
         />
       </div>
+
+      <MovieFormModal
+        open={editOpen}
+        onClose={() => setEditOpen(false)}
+        initialValues={editInitialValues || initialValues}
+        onSubmit={handleUpdateMovie}
+        title='Edit Movie'
+      />
     </div>
   );
 }

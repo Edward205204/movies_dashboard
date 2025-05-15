@@ -6,7 +6,8 @@ const BASE_URL = {
   getMovies: '/QuanLyPhim/LayDanhSachPhimPhanTrang',
   addMovie: '/QuanLyPhim/ThemPhimUploadHinh',
   deleteMovie: '/QuanLyPhim/XoaPhim',
-  getMovieDetail: '/QuanLyPhim/LayThongTinPhim'
+  getMovieDetail: '/QuanLyPhim/LayThongTinPhim',
+  updateMovie: '/QuanLyPhim/CapNhatPhimUpload'
 };
 export class MovieApi {
   getMovies(params: MovieQueryParams) {
@@ -26,6 +27,10 @@ export class MovieApi {
     return http.get<ResponseAPI<MovieItem>>(BASE_URL.getMovieDetail, {
       params: { MaPhim: id }
     });
+  }
+
+  updateMovie(formData: FormData) {
+    return http.post(BASE_URL.updateMovie, formData);
   }
 }
 

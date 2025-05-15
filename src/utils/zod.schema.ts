@@ -36,7 +36,8 @@ export const movieSchema = z.object({
   dangChieu: z.boolean(),
   hot: z.boolean(),
   danhGia: z.number().min(0).max(10),
-  hinhAnh: z.instanceof(File).optional()
+  hinhAnh: z.instanceof(File).optional(),
+  maPhim: z.number().optional()
 });
 
 export type MovieFormValues = z.infer<typeof movieSchema>;
