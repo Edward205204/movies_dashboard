@@ -15,23 +15,9 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { Formik, Form, Field, ErrorMessage, FieldProps } from 'formik';
-import * as z from 'zod';
 import { useState } from 'react';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
-
-const movieSchema = z.object({
-  tenPhim: z.string().min(1, 'Tên phim không được để trống'),
-  trailer: z.string().min(1, 'Trailer không được để trống'),
-  moTa: z.string().min(1, 'Mô tả không được để trống'),
-  ngayKhoiChieu: z.string().min(1, 'Ngày khởi chiếu không được để trống'),
-  sapChieu: z.boolean(),
-  dangChieu: z.boolean(),
-  hot: z.boolean(),
-  danhGia: z.number().min(0).max(10),
-  hinhAnh: z.instanceof(File).optional()
-});
-
-type MovieFormValues = z.infer<typeof movieSchema>;
+import { movieSchema, MovieFormValues } from '@/utils/zod.schema';
 
 export default function MoviePage() {
   const queryConfig = useQueryConfig();
@@ -78,7 +64,8 @@ export default function MoviePage() {
     sapChieu: true,
     dangChieu: true,
     hot: true,
-    danhGia: 10
+    danhGia: 10,
+    hinhAnh: undefined
   };
 
   const handleSubmit = (values: MovieFormValues) => {
