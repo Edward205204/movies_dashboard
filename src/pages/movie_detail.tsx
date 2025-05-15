@@ -8,26 +8,18 @@ import { useState } from 'react';
 
 function formatDateDMY(dateStr: string) {
   if (!dateStr) return '';
-  // Nếu có dạng ISO hoặc có ký tự T
   if (dateStr.includes('T')) {
-    // Thử parse dạng yyyy-MM-ddTHH:mm:ss hoặc dd/MM/yyyyTHH:mm:ss
-    // Ưu tiên tách lấy phần ngày
     const [datePart] = dateStr.split('T');
-    // Nếu là yyyy-MM-dd
     if (datePart.includes('-')) {
       const [y, m, d] = datePart.split('-');
       return `${d.padStart(2, '0')}/${m.padStart(2, '0')}/${y}`;
     }
-    // Nếu là dd/MM/yyyy
     if (datePart.includes('/')) {
       return datePart;
     }
-    // Nếu là MM/yyyy hoặc các dạng khác thì trả về nguyên bản
     return datePart;
   }
-  // Nếu là dd/MM/yyyy
   if (dateStr.includes('/')) return dateStr.split(' ')[0];
-  // Nếu là yyyy-MM-dd
   if (dateStr.includes('-')) {
     const [y, m, d] = dateStr.split('-');
     return `${d.padStart(2, '0')}/${m.padStart(2, '0')}/${y}`;

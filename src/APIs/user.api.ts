@@ -4,7 +4,9 @@ import http from '@/utils/http.axios';
 
 const BASE_URL = {
   getUsers: '/QuanLyNguoiDung/LayDanhSachNguoiDungPhanTrang',
-  addUser: '/QuanLyNguoiDung/ThemNguoiDung'
+  addUser: '/QuanLyNguoiDung/ThemNguoiDung',
+  updateUser: '/QuanLyNguoiDung/CapNhatThongTinNguoiDung',
+  deleteUser: '/QuanLyNguoiDung/XoaNguoiDung'
 };
 
 export class UserApi {
@@ -13,6 +15,14 @@ export class UserApi {
   }
   addUser(data: Omit<User, 'maNhom'> & { maNhom: string }) {
     return http.post(BASE_URL.addUser, data);
+  }
+  updateUser(data: Omit<User, 'maNhom'> & { maNhom: string }) {
+    return http.post(BASE_URL.updateUser, data);
+  }
+  deleteUser(id: string) {
+    return http.delete(BASE_URL.deleteUser, {
+      params: { TaiKhoan: id }
+    });
   }
 }
 

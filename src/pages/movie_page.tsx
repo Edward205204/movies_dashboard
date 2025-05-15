@@ -104,7 +104,6 @@ export default function MoviePage() {
 
   const handleSubmit = (values: MovieFormValues) => {
     const formData = new FormData();
-    // Format ngày chiếu nếu có
     let ngayKhoiChieuFormatted = values.ngayKhoiChieu;
     if (values.ngayKhoiChieu && values.ngayKhoiChieu.includes('-')) {
       const [year, month, day] = values.ngayKhoiChieu.split('-');
@@ -152,7 +151,6 @@ export default function MoviePage() {
     if (values.hinhAnh) {
       formData.append('File', values.hinhAnh);
     }
-    // Luôn append maPhim nếu có (chỉ khi edit)
     if (values.maPhim) {
       formData.append('maPhim', values.maPhim.toString());
     }

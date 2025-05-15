@@ -14,11 +14,11 @@ export function UserTable({ users, onEdit, onDelete }: Props) {
     <Table>
       <TableHeader>
         <TableRow className='grid grid-cols-[1.5fr_2fr_2fr_1.5fr_1.5fr_2fr_1fr] items-center gap-4'>
-          <TableHead>Tài khoản</TableHead>
-          <TableHead>Họ tên</TableHead>
+          <TableHead>Account</TableHead>
+          <TableHead>Full Name</TableHead>
           <TableHead>Email</TableHead>
-          <TableHead>Số ĐT</TableHead>
-          <TableHead>Loại</TableHead>
+          <TableHead>Phone Number</TableHead>
+          <TableHead>User Type</TableHead>
           <TableHead>Mật khẩu</TableHead>
           <TableHead className='text-center'>Action</TableHead>
         </TableRow>

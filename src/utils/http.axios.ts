@@ -11,9 +11,6 @@ class Http {
     this.instance = axios.create({
       baseURL: config.baseURL,
       timeout: 10000
-      // headers: {
-      //   'Content-Type': 'application/json'
-      // }
     });
 
     this.instance.interceptors.request.use((config) => {
