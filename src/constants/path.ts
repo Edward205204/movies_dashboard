@@ -2,7 +2,7 @@ const path = {
   home: '/',
   login: '/login',
   movies: '/movies',
-  add_film: '/add-film',
+  movie_detail: '/movies/:id',
   notFound: '*'
 } as const;
 

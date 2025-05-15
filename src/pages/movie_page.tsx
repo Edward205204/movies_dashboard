@@ -34,13 +34,25 @@ export default function MoviePage() {
 
   const addMovieMutation = useMutation({
     mutationFn: (formData: FormData) => movieApi.addMovie(formData),
-    onSuccess: () => {
-      toast.success('Thêm phim thành công');
+    onSuccess: (data) => {
+      toast.success(data.data.message);
       setOpen(false);
       queryClient.invalidateQueries({ queryKey: ['movies'] });
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onError: (error: any) => {
+      toast.error(error?.response?.data?.message || 'Failed to add movie');
+    }
+  });
+
+  const deleteMovieMutation = useMutation({
+    mutationFn: (movieId: number) => movieApi.deleteMovie(movieId.toString()),
+    onSuccess: () => {
+      toast.success('Movie deleted successfully');
+      queryClient.invalidateQueries({ queryKey: ['movies'] });
+    },
     onError: () => {
-      toast.error('Thêm phim thất bại');
+      toast.error('Failed to delete movie');
     }
   });
 
@@ -49,7 +61,7 @@ export default function MoviePage() {
   };
 
   const handleDelete = (movieId: number) => {
-    toast.success(`Deleted movie with ID: ${movieId}`);
+    deleteMovieMutation.mutate(movieId);
   };
 
   const handleSchedule = (movieId: number) => {

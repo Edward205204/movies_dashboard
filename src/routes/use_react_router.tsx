@@ -8,6 +8,7 @@ import HomePage from '@/pages/home_page';
 import ErrorPage from '@/pages/error_page';
 import LoginPage from '@/pages/login_page';
 import MoviePage from '@/pages/movie_page';
+import MovieDetailPage from '@/pages/movie_detail';
 
 export default function UseReactRouter() {
   const routes = useRoutes([
@@ -36,6 +37,14 @@ export default function UseReactRouter() {
           element: (
             <MainLayout>
               <MoviePage />
+            </MainLayout>
+          )
+        },
+        {
+          path: path.movie_detail,
+          element: (
+            <MainLayout>
+              <MovieDetailPage />
             </MainLayout>
           )
         }
