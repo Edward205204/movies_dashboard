@@ -1,6 +1,6 @@
 import Header from '@/components/customs/header';
 import { Link, useLocation } from 'react-router';
-import { User, Settings } from 'lucide-react';
+import { User, Settings, Home } from 'lucide-react';
 
 export default function ProfileLayout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
@@ -13,6 +13,13 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
       <Header />
       <div className='flex flex-1'>
         <aside className='w-56 border-r bg-muted/40 p-4 flex flex-col gap-2'>
+          <Link
+            to='/'
+            className='flex items-center gap-3 rounded-lg px-3 py-2 text-base font-medium transition-colors hover:bg-accent hover:text-accent-foreground mb-2 border border-transparent hover:border-black'
+          >
+            <Home className='w-5 h-5' />
+            Back to Home
+          </Link>
           {menu.map((item) => (
             <Link
               key={item.link}
