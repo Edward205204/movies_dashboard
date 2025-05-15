@@ -2,24 +2,26 @@
 import { useSearchParam } from './query_param';
 import { MovieQueryParams } from '@/@types/movies';
 import { omitBy, isUndefined } from 'lodash';
+import { useLocation } from 'react-router';
 
 export type QueryConfig = {
   [key in keyof MovieQueryParams]?: string;
 };
 
-const MAX_ITEMS_PER_PAGE = 6;
+const MAX_ITEMS_PER_PAGE_MOVIE = 6;
+const MAX_ITEMS_PER_PAGE_USER = 16;
 
 export function useQueryConfig() {
   const searchParam = useSearchParam();
-  const rawItemsPerPage = searchParam.soPhanTuTrenTrang || '7';
+  const location = useLocation();
+  const isUserPage = location.pathname.includes('/users');
+  const maxItems = isUserPage ? MAX_ITEMS_PER_PAGE_USER : MAX_ITEMS_PER_PAGE_MOVIE;
+  const rawItemsPerPage = searchParam.soPhanTuTrenTrang || (isUserPage ? '16' : '7');
   let itemsPerPage = parseInt(rawItemsPerPage);
 
-  // Nếu số phần tử trên trang lớn hơn MAX_ITEMS_PER_PAGE
-  if (itemsPerPage > MAX_ITEMS_PER_PAGE) {
-    itemsPerPage = MAX_ITEMS_PER_PAGE;
-  }
-  // Nếu số phần tử trên trang nhỏ hơn hoặc bằng 0
-  else if (itemsPerPage <= 0) {
+  if (itemsPerPage > maxItems) {
+    itemsPerPage = maxItems;
+  } else if (itemsPerPage <= 0) {
     itemsPerPage = 1;
   }
 
