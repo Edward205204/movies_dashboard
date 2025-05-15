@@ -38,21 +38,23 @@ export default function Header() {
   const handleSearch = (value: string) => {
     setSearchValue(value);
     if (location.pathname === path.movies) {
-      const newQueryConfig = {
-        ...queryConfig,
-        ...(value ? { tenPhim: value } : {}),
-        soTrang: '1'
-      };
+      const newQueryConfig = { ...queryConfig, soTrang: '1' };
+      if (value) {
+        newQueryConfig.tenPhim = value;
+      } else {
+        delete newQueryConfig.tenPhim;
+      }
       navigate({
         pathname: path.movies,
         search: createSearchParams(newQueryConfig).toString()
       });
     } else if (location.pathname === path.users) {
-      const newQueryConfig = {
-        ...queryConfig,
-        ...(value ? { tuKhoa: value } : {}),
-        soTrang: '1'
-      };
+      const newQueryConfig = { ...queryConfig, soTrang: '1' };
+      if (value) {
+        newQueryConfig.tuKhoa = value;
+      } else {
+        delete newQueryConfig.tuKhoa;
+      }
       navigate({
         pathname: path.users,
         search: createSearchParams(newQueryConfig).toString()
