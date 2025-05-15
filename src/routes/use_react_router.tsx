@@ -9,6 +9,7 @@ import ErrorPage from '@/pages/error_page';
 import LoginPage from '@/pages/login_page';
 import MoviePage from '@/pages/movie_page';
 import MovieDetailPage from '@/pages/movie_detail';
+import UserPage from '@/pages/user_page';
 
 export default function UseReactRouter() {
   const routes = useRoutes([
@@ -45,6 +46,14 @@ export default function UseReactRouter() {
           element: (
             <MainLayout>
               <MovieDetailPage />
+            </MainLayout>
+          )
+        },
+        {
+          path: path.users,
+          element: (
+            <MainLayout>
+              <UserPage />
             </MainLayout>
           )
         }

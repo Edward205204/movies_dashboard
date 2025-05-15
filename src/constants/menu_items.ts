@@ -1,5 +1,5 @@
 import path from '@/constants/path';
-import { Film, Home } from 'lucide-react';
+import { Film, Home, User } from 'lucide-react';
 
 const navigateItems = [
   {
@@ -11,6 +11,11 @@ const navigateItems = [
     name: 'Movies',
     link: path.movies,
     icon: Film
+  },
+  {
+    name: 'Users',
+    link: path.users,
+    icon: User
   }
 ];
 export default navigateItems;
