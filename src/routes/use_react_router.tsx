@@ -12,6 +12,7 @@ import MovieDetailPage from '@/pages/movie_detail';
 import UserPage from '@/pages/user_page';
 import ProfileLayout from '@/layouts/profile_layout';
 import ProfilePage from '@/pages/profile_page';
+import SettingPage from '@/pages/setting_page';
 
 export default function UseReactRouter() {
   const routes = useRoutes([
@@ -64,6 +65,14 @@ export default function UseReactRouter() {
           element: (
             <ProfileLayout>
               <ProfilePage />
+            </ProfileLayout>
+          )
+        },
+        {
+          path: path.profile + '/setting',
+          element: (
+            <ProfileLayout>
+              <SettingPage />
             </ProfileLayout>
           )
         }

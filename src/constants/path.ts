@@ -5,7 +5,8 @@ const path = {
   movie_detail: '/movies/:id',
   users: '/users',
   notFound: '*',
-  profile: '/profile'
+  profile: '/profile',
+  setting: '/profile/setting'
 } as const;
 
 export default path;
