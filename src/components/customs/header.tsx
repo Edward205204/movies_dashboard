@@ -146,7 +146,14 @@ export default function Header() {
             >
               Profile
             </DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                navigate(path.setting);
+                setOpen(false);
+              }}
+            >
+              Settings
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogout}>
               <LogOut className='mr-2 h-4 w-4' />

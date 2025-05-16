@@ -2,6 +2,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { User } from '@/@types/users';
 import { Button } from '@/components/ui/button';
 import { Pencil, Trash2 } from 'lucide-react';
+import { useContext } from 'react';
+import { AppContext } from '@/context/app.context';
 
 interface Props {
   users: User[];
@@ -10,6 +12,12 @@ interface Props {
 }
 
 export function UserTable({ users, onEdit, onDelete }: Props) {
+  const { showPassword } = useContext(AppContext);
+
+  const maskPassword = (password: string) => {
+    return showPassword ? password : '••••••';
+  };
+
   return (
     <Table>
       <TableHeader>
@@ -34,7 +42,7 @@ export function UserTable({ users, onEdit, onDelete }: Props) {
             <TableCell>{user.email}</TableCell>
             <TableCell>{user.soDt || '-'}</TableCell>
             <TableCell>{user.maLoaiNguoiDung}</TableCell>
-            <TableCell>{user.matKhau}</TableCell>
+            <TableCell>{maskPassword(user.matKhau)}</TableCell>
             <TableCell>
               <div className='flex justify-center gap-2'>
                 <Button variant='outline' size='icon' className='h-8 w-8' onClick={() => onEdit && onEdit(user)}>

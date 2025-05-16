@@ -29,12 +29,12 @@ export default function ProfilePage() {
     }
   });
 
-  if (!user) return <div className='text-center py-10 text-lg'>Đang tải thông tin...</div>;
+  if (!user) return <div className='text-center py-10 text-lg'>Loading information...</div>;
 
   return (
     <div className='w-full px-0 md:px-8 py-8'>
       <div className='flex justify-between items-center mb-6 w-full'>
-        <h2 className='text-3xl font-bold'>Thông tin cá nhân</h2>
+        <h2 className='text-3xl font-bold'>Personal Information</h2>
         <Button variant='outline' onClick={() => setEditOpen(true)}>
           Edit
         </Button>
@@ -43,11 +43,11 @@ export default function ProfilePage() {
         <table className='w-full text-lg border border-border bg-card'>
           <tbody>
             <tr className='border-b border-border'>
-              <td className='font-semibold px-6 py-4 w-1/4 bg-muted'>Tài khoản</td>
+              <td className='font-semibold px-6 py-4 w-1/4 bg-muted'>Account</td>
               <td className='px-6 py-4'>{user.taiKhoan}</td>
             </tr>
             <tr className='border-b border-border'>
-              <td className='font-semibold px-6 py-4 bg-muted'>Họ tên</td>
+              <td className='font-semibold px-6 py-4 bg-muted'>Full Name</td>
               <td className='px-6 py-4'>{user.hoTen}</td>
             </tr>
             <tr className='border-b border-border'>
@@ -55,11 +55,11 @@ export default function ProfilePage() {
               <td className='px-6 py-4'>{user.email}</td>
             </tr>
             <tr className='border-b border-border'>
-              <td className='font-semibold px-6 py-4 bg-muted'>Số điện thoại</td>
+              <td className='font-semibold px-6 py-4 bg-muted'>Phone Number</td>
               <td className='px-6 py-4'>{user.soDt}</td>
             </tr>
             <tr>
-              <td className='font-semibold px-6 py-4 bg-muted'>Loại người dùng</td>
+              <td className='font-semibold px-6 py-4 bg-muted'>User Type</td>
               <td className='px-6 py-4'>{user.maLoaiNguoiDung === 'QuanTri' ? 'Admin' : 'User'}</td>
             </tr>
           </tbody>

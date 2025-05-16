@@ -127,7 +127,6 @@ export default function UserPage() {
           className='mt-8'
         />
       </div>
-      {/* Modal thêm user */}
       <UserFormModal
         open={open}
         onClose={() => setOpen(false)}
