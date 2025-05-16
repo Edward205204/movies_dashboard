@@ -40,26 +40,26 @@ export default function ProfilePage() {
         </Button>
       </div>
       <div className='overflow-x-auto'>
-        <table className='w-full text-lg border border-gray-200 bg-white'>
+        <table className='w-full text-lg border border-border bg-card'>
           <tbody>
-            <tr className='border-b'>
-              <td className='font-semibold px-6 py-4 w-1/4 bg-gray-50'>Tài khoản</td>
+            <tr className='border-b border-border'>
+              <td className='font-semibold px-6 py-4 w-1/4 bg-muted'>Tài khoản</td>
               <td className='px-6 py-4'>{user.taiKhoan}</td>
             </tr>
-            <tr className='border-b'>
-              <td className='font-semibold px-6 py-4 bg-gray-50'>Họ tên</td>
+            <tr className='border-b border-border'>
+              <td className='font-semibold px-6 py-4 bg-muted'>Họ tên</td>
               <td className='px-6 py-4'>{user.hoTen}</td>
             </tr>
-            <tr className='border-b'>
-              <td className='font-semibold px-6 py-4 bg-gray-50'>Email</td>
+            <tr className='border-b border-border'>
+              <td className='font-semibold px-6 py-4 bg-muted'>Email</td>
               <td className='px-6 py-4'>{user.email}</td>
             </tr>
-            <tr className='border-b'>
-              <td className='font-semibold px-6 py-4 bg-gray-50'>Số điện thoại</td>
+            <tr className='border-b border-border'>
+              <td className='font-semibold px-6 py-4 bg-muted'>Số điện thoại</td>
               <td className='px-6 py-4'>{user.soDt}</td>
             </tr>
             <tr>
-              <td className='font-semibold px-6 py-4 bg-gray-50'>Loại người dùng</td>
+              <td className='font-semibold px-6 py-4 bg-muted'>Loại người dùng</td>
               <td className='px-6 py-4'>{user.maLoaiNguoiDung === 'QuanTri' ? 'Admin' : 'User'}</td>
             </tr>
           </tbody>
