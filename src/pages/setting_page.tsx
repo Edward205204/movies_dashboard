@@ -18,7 +18,6 @@ export default function SettingPage() {
       <h2 className='text-3xl font-bold'>Settings</h2>
 
       <div className='grid gap-6'>
-        {/* Interface */}
         <Card>
           <CardHeader>
             <CardTitle className='flex items-center gap-2'>
@@ -45,7 +44,6 @@ export default function SettingPage() {
           </CardContent>
         </Card>
 
-        {/* Notifications */}
         <Card>
           <CardHeader>
             <CardTitle className='flex items-center gap-2'>
@@ -65,7 +63,6 @@ export default function SettingPage() {
           </CardContent>
         </Card>
 
-        {/* Language */}
         <Card>
           <CardHeader>
             <CardTitle className='flex items-center gap-2'>
@@ -87,7 +84,6 @@ export default function SettingPage() {
           </CardContent>
         </Card>
 
-        {/* Security */}
         <Card>
           <CardHeader>
             <CardTitle className='flex items-center gap-2'>

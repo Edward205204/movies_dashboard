@@ -45,7 +45,6 @@ export default function MovieDetailPage() {
 
   return (
     <div className='relative flex flex-col md:flex-row w-full min-h-[80vh] bg-background p-0 md:p-12 gap-0 md:gap-12 items-center'>
-      {/* Nút Back */}
       <Button
         variant='ghost'
         size='icon'
@@ -54,7 +53,6 @@ export default function MovieDetailPage() {
       >
         <ArrowLeft className='w-6 h-6' />
       </Button>
-      {/* Poster + Edit button */}
       <div className='relative w-full md:w-[340px] flex-shrink-0 flex justify-center items-center md:items-start mb-8 md:mb-0'>
         <div className='group relative w-[220px] h-[320px] md:w-[260px] md:h-[400px] flex items-end transition-all duration-300'>
           {imgError || !movie.hinhAnh ? (
@@ -72,7 +70,6 @@ export default function MovieDetailPage() {
           )}
         </div>
       </div>
-      {/* Movie Info */}
       <div className='flex-1 flex flex-col justify-center px-4 md:px-0 py-4 md:py-0 max-w-2xl'>
         <div className='flex items-center justify-between mb-2'>
           <h2 className='text-3xl md:text-4xl font-bold'>{movie.tenPhim}</h2>
